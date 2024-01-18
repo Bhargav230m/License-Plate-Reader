@@ -9,13 +9,13 @@ def preprocess(cropped_image):
     Then eroding it to brighten up the thesholded crop
     Then we return the img
     """
+    
     grayscale_image = cv.cvtColor(cropped_image, cv.COLOR_BGR2GRAY)  # Converts the image to grayscale
     _, thresholded_image = cv.threshold(grayscale_image, 0, 255, cv.THRESH_BINARY + cv.THRESH_OTSU)  # Getting the threshold of the image
     img = cv.bitwise_not(thresholded_image)
     img = cv.erode(img, (9, 9), 8)  # Eroding to get a better and ligthen up image
     
     return img
-
 
 # Read the license plate from the cropped image
 def read_license_plate(cropped_image):
@@ -24,12 +24,12 @@ def read_license_plate(cropped_image):
     Then we get the preprocessed image from the preprocessor
     Then we read the license plate and return the results
     """
+    
     reader = easyocr.Reader(['en'])  # Initializes the reader
     img = preprocess(cropped_image)  # Preprocess the crop
     result = reader.readtext(img)  # We read the license number off
     
     return result
-
 
 # Extract the results and coordinates
 def extract_results(model_results, frame):
