@@ -37,6 +37,13 @@ def read_license_plate(cropped_image):
 
 # Show Result
 def show_result(result):
+    """
+    Extract the license plate
+    Create a TK window
+    Display the license number
+    Close and open windows after every 1 second for videos (SLOW - 1 FRAME EVERY SECOND)
+    """
+    
     text = result[0][1]
     
     window = tk.Tk()  # Create the main window
