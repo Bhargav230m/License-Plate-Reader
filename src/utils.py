@@ -1,6 +1,8 @@
 import cv2 as cv
 import easyocr
 import json
+import tkinter as tk
+
 
 # Preprocess the cropped image for better ocr of license numbers
 def preprocess(cropped_image):
@@ -17,6 +19,7 @@ def preprocess(cropped_image):
     
     return img
 
+
 # Read the license plate from the cropped image
 def read_license_plate(cropped_image):
     """
@@ -30,6 +33,21 @@ def read_license_plate(cropped_image):
     result = reader.readtext(img)  # We read the license number off
     
     return result
+
+
+# Show Result
+def show_result(result):
+    text = result[0][1]
+    
+    window = tk.Tk()  # Create the main window
+    label = tk.Label(window, text=text)  # Create a label with the given text
+    label.pack(padx=20, pady=20)  # Pack the label into the window with some padding
+    
+    # Schedule the close_window function to be called after 1000 milliseconds (1 second)
+    window.after(1000, lambda: window.destroy())
+
+    window.mainloop()  # Start the main event loop
+
 
 # Extract the results and coordinates
 def extract_results(model_results, frame):
@@ -48,5 +66,6 @@ def extract_results(model_results, frame):
             data = data_json[0]["box"]  # Reading the box results
             cropped_image = frame[int(data["y1"]):int(data["y2"]), int(data["x1"]):int(data["x2"])]  # Cropping the image with the box coordinates
             result = read_license_plate(cropped_image)  # Use the read license plate function to read the license plates
+            show_result(result)  # Displays result of the read license plate
             return result  # Returning the result
     return None  # None is returned
