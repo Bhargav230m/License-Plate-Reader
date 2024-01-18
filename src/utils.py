@@ -44,14 +44,14 @@ def show_result(result):
     Close and open windows after every 1 second for videos (SLOW - 1 FRAME EVERY SECOND)
     """
     
-    text = result[0][1]
+    text = result
     
     window = tk.Tk()  # Create the main window
     label = tk.Label(window, text=text)  # Create a label with the given text
     label.pack(padx=20, pady=20)  # Pack the label into the window with some padding
     
     # Schedule the close_window function to be called after 1000 milliseconds (1 second)
-    window.after(1000, lambda: window.destroy())
+    window.after(2500, lambda: window.destroy())
 
     window.mainloop()  # Start the main event loop
 

@@ -25,5 +25,4 @@ while True:
     res = extract_results(prediction, frame)
     
     # Print the results
-    print(res[0][1])
-    
+    print(res)
